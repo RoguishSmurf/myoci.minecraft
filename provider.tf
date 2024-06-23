@@ -5,6 +5,9 @@ provider "oci" {
 
 variable "region" {}
 variable "tenancy_id" {}
+variable "namespace" {
+  default = ""
+}
 
 data "oci_identity_availability_domains" "ads" {
   compartment_id = var.tenancy_id
@@ -12,4 +15,8 @@ data "oci_identity_availability_domains" "ads" {
 
 output "ads" {
   value = data.oci_identity_availability_domains.ads.availability_domains
+}
+
+terraform {
+  backend "s3" {}
 }
